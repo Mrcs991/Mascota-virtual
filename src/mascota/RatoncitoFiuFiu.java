@@ -17,7 +17,8 @@ public class RatoncitoFiuFiu {
     private final int VEJEZ = 2;
     private boolean dormido;
     private final int MUERTE = 12000;
-    private int juego;
+    private boolean juego;
+    private int felicidad;
 
     public RatoncitoFiuFiu(String nombre, int peso, byte hambre, byte suciedad, byte salud, byte energia) {
         // Un objeto mascota.RatoncitoFiuFiu debería informar cuando nace...
@@ -29,6 +30,7 @@ public class RatoncitoFiuFiu {
         this.nombre = nombre;
         edad = 0;
         this.dormido = false;
+        this.felicidad = 100;
     }
 
     public String estadisticas() {
@@ -38,6 +40,7 @@ public class RatoncitoFiuFiu {
         sb.append("\nSuciedad: ").append(this.suciedad);
         sb.append("\nSalud: ").append(this.salud);
         sb.append("\nEnergia: ").append(this.energia);
+        sb.append("\nFelicidad: ").append(this.felicidad);
         return sb.toString();
     }
 
@@ -85,7 +88,7 @@ public class RatoncitoFiuFiu {
     }
 
     public boolean estasFeliz() {
-        return !estasSucio() && !tienesHambre();
+        return felicidad >= 75;
     }
 
     public void envejecer(int segundos) {
@@ -116,6 +119,9 @@ public class RatoncitoFiuFiu {
             if (dormido) {
                 aumentarEnergia(10);
             }
+            if(estasEnfermo()){
+                aumentarFelicidad(-1);
+            }
             envejecimiento = 0;
         }
 
@@ -128,6 +134,7 @@ public class RatoncitoFiuFiu {
     public void alimentar(float cantidadAlimento) {
         if (tienesHambre()) {
             aumentarSalud(cantidadAlimento);
+            aumentarFelicidad(cantidadAlimento);
         }
         this.hambre -= cantidadAlimento;
         if (hambre <= 0) {
@@ -138,8 +145,8 @@ public class RatoncitoFiuFiu {
     }
 
     public void curar(float cantidadMedicina) {
-
         aumentarSalud(cantidadMedicina);
+        aumentarFelicidad(cantidadMedicina);
     }
 
     private void ganarPeso(float cantidad) {
@@ -165,7 +172,34 @@ public class RatoncitoFiuFiu {
             salud = 100;
         }
     }
+
+    private void aumentarFelicidad (float cantidad){
+        this.felicidad += cantidad;
+        if (felicidad >= 100){
+            this.felicidad = 100;
+        }
+        if (felicidad <= 0){
+            this.felicidad = 0;
+        }
+    }
+
+    public boolean estaJugando(){
+        return this.juego;
+    }
+
     public boolean jugar (float cantidadDiversion){
 
+        if(estasEnfermo() || estasSucio() || estasDormido() || tienesHambre()){
+            this.juego = false;
+            return false;
+        } else {
+            this.felicidad += cantidadDiversion;
+            aumentarFelicidad(cantidadDiversion);
+
+            this.hambre += cantidadDiversion;
+            this.energia -= cantidadDiversion;
+            this.juego = true;
+            return true;
+        }
     }
 }
