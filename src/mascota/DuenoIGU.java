@@ -65,7 +65,6 @@ public class DuenoIGU extends JFrame {
 
             try {
                 rutaImagenes = getClass().getResource("../imagenes").toString();
-                ruta = "";
                 ruta1 = "";
                 ruta2 = "";
 
@@ -95,9 +94,8 @@ public class DuenoIGU extends JFrame {
                         ruta1 = rutaImagenes + "/dormido-" + tramoEdad.toString() + "-00.gif";
                         ruta2 = rutaImagenes + "/dormido-" + tramoEdad.toString() + "-01.gif";
                     } else if (jugando) {
-                        ruta = rutaImagenes + "/jugando1.gif";
-                        ruta1 = rutaImagenes + "/jugando2.gif";
-                        ruta2 = rutaImagenes + "/jugando3.gif";
+                        ruta1 = rutaImagenes + "/jugando1.gif";
+                        ruta2 = rutaImagenes + "/jugando2.gif";
                     }
                     if (muerto) {
                         ruta1 = rutaImagenes + "/muerto.gif";
@@ -107,7 +105,7 @@ public class DuenoIGU extends JFrame {
                     if (sucio) {
                         ruta1 = rutaImagenes + "/quejarse-sucio-" + tramoEdad.toString() + "-00.gif";
                         ruta2 = rutaImagenes + "/quejarse-sucio-" + tramoEdad.toString() + "-01.gif";
-                    } else {
+                    }  else {
                         ruta1 = rutaImagenes + "/quejarse-" + tramoEdad.toString() + "-00.gif";
                         ruta2 = rutaImagenes + "/quejarse-" + tramoEdad.toString() + "-01.gif";
                     }
