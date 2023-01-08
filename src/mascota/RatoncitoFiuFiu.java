@@ -17,6 +17,7 @@ public class RatoncitoFiuFiu {
     private final int VEJEZ = 2;
     private boolean dormido;
     private final int MUERTE = 12000;
+    private int juego;
 
     public RatoncitoFiuFiu(String nombre, int peso, byte hambre, byte suciedad, byte salud, byte energia) {
         // Un objeto mascota.RatoncitoFiuFiu debería informar cuando nace...
@@ -158,11 +159,13 @@ public class RatoncitoFiuFiu {
             dormido = false;
         }
     }
-
     private void aumentarSalud(float cantidad) {
         this.salud += cantidad;
         if (salud >= 100) {
             salud = 100;
         }
+    }
+    public boolean jugar (float cantidadDiversion){
+
     }
 }
